@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    tad.gitops.set/image: ".spec.template.spec.containers[0].image"
+    tad.gitops.get/image: ".spec.template.spec.containers[0].image"
+    tad.gitops.set/replicas: ".spec.replicas"
+    tad.gitops.get/replicas: ".spec.replicas"
+  labels:
+    app.kubernetes.io/instance: test-crewai25102101
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: test-crewai25102101
+    app.kubernetes.io/part-of: test-crewai25102101
+  name: test-crewai25102101
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: test-crewai25102101
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: test-crewai25102101
+    spec:
+      containers:
+        - image: quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest
+          resources: {}
+          name: app-inference
+          envFrom:
+            - configMapRef:
+                name: test-crewai25102101-model-config
+          env:
+            - name: LLM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: crewai-secrets
+                  key: API_KEY
+            
+            
+            - name: RHDH_TOKEN:
+              valueFrom:
+                secretKeyRef:
+                  name: crewai-secrets
+                  key: RHDH_TOKEN
+            ports:
+            - containerPort: 8501
+          securityContext:
+            runAsNonRoot: true

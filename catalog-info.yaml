@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: test-crewai25102101-gitops
+  description: This is GitOps manifest for test-crewai25102101   
+  links:
+    - url: https://www.redhat.com/en/solutions/trusted-software-supply-chain
+      title: Trusted Secure Supply Chain 
+      icon: dashboard
+      type: admin-dashboard
+  annotations:
+    # ArgoCD apps from this template used rhtap-gitops as the grouping
+    argocd/app-selector: rhtap/gitops=test-crewai25102101
+    janus-idp.io/tekton: test-crewai25102101 
+    backstage.io/kubernetes-id: test-crewai25102101 
+    backstage.io/techdocs-ref: dir:. 
+spec:
+  type: gitops
+  owner: user:default/theofanispetkos 
+  lifecycle: experimental  

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-crewai25102101-model-config
+data:
+  LLM_BASE_URL: "https://meta-llama-31-8b-3scale-apicast-production.apps.rosa.redhat-ai-dev.m6no.p3.openshiftapps.com:443/v1"
+  LLM_MODEL_NAME: "openai/llama-31-8b-version1"
